@@ -5,14 +5,16 @@ import (
 	"strings"
 )
 
-func main() {
+// Declare variables and assign values using short declaration syntax (type inference)
+const conferenceTickets int = 50
 
-	// Declare variables and assign values using short declaration syntax (type inference)
-	conferenceName := "Go Conference"
-	const conferenceTickets int = 50
-	var remainingTickets uint = 50
-	//var bookings []string //string{"Emie", "Gloria", "Anjelie", "Jojie", "Simona", "Wanesa"}
-	bookings := []string{}
+var conferenceName = "Go Conference"
+var remainingTickets uint = 50
+var bookings = []string{}
+
+//var bookings []string //string{"Emie", "Gloria", "Anjelie", "Jojie", "Simona", "Wanesa"}
+
+func main() {
 
 	greetingsUsers(conferenceName, conferenceTickets, remainingTickets)
 
@@ -24,11 +26,8 @@ func main() {
 		isValidName, isValidEmail, isValidTicketNumber := validateUserInput(firstName, lastName, emailAddress, userTickets, remainingTickets)
 
 		if isValidName && isValidEmail && isValidTicketNumber {
-			remainingTickets = remainingTickets - userTickets
-			bookings = append(bookings, firstName+" "+lastName)
-
-			fmt.Printf("Thank you %v %v for booking %v tickets, and receipts will be send to your email %v.\n", firstName, lastName, userTickets, emailAddress)
-			fmt.Printf("%v tickets remaining for %v\n", remainingTickets, conferenceName)
+			//call booking function
+			bookingTickets(remainingTickets, userTickets, bookings, firstName, lastName, emailAddress, conferenceName)
 
 			//call function firstnames
 			firstNames := getFirstNames(bookings)
@@ -92,4 +91,12 @@ func getUserInput() (string, string, string, uint) {
 	fmt.Scan(&userTickets)
 
 	return firstName, lastName, emailAddress, userTickets
+}
+
+func bookingTickets(remainingTickets uint, userTickets uint, bookings []string, firstName string, lastName string, emailAddress string, conferenceName string) {
+	remainingTickets = remainingTickets - userTickets
+	bookings = append(bookings, firstName+" "+lastName)
+
+	fmt.Printf("Thank you %v %v for booking %v tickets, and receipts will be send to your email %v.\n", firstName, lastName, userTickets, emailAddress)
+	fmt.Printf("%v tickets remaining for %v\n", remainingTickets, conferenceName)
 }
